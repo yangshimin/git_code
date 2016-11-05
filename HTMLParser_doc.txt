@@ -1,0 +1,43 @@
+HTMLParser是python自带的模块，使用简单，能够很容易地实现HTML文件的分析。
+
+HTMLParser采用的是一种事件驱动的模式，当HTMLParser找到一个特定的标记时，它会调用一个用户定义的函数，以此来通知程序处理。它
+主要的用户回调函数的命名都是以handler_开头的，都是HTMLParser的成员函数。当我们使用时，就从HTMLParser派生出新的类，然后重新
+定义这几个以handler_开头的函数即可(这是因为，源码中handle_xxx函数体均是空的，需要自己继承并添加处理内容)，这几个函数包括：
+
+	handle_startendtag(tag, attrs)		处理开始标签和结束标签
+	handle_starttag(tag,attrs)			处理开始标签，比如<xx>
+	handle_endtag(tag)					处理结束标签，比如</xx>
+	handle_charref(name)				处理特殊字符串，就是以&#开头的，一般是内码表示的字符
+	handle_entityref(name)				处理一些特殊字符，以&开头的，比如&nbsp;
+	handle_data(data)					处理数据，就是<xx>data</xx>中间的那些数据
+	handle_comment(data)				处理注释
+	handle_decl							处理<!开头的，比如<!DOCTYPE html PUBLIC"-//W3C//DTD HTML 4.01 Transitional//EN"
+	handle_pi							处理<?instruction>的东西
+	
+当解析HTML时倘若碰到<xxx>，自动调用handle_starttag();碰到</xxx>,自动调用handle_endtag()。每一个标签，无论是<>还是</>，都会调用
+handle_data()
+	
+	
+	这里从网页中获取url为例，介绍一下。要想获取到url,肯定是要分析<a>标签，然后取到它的href属性的值。下面是代码：
+	
+	from html.parser import HTMLParser
+	from html.entities import name2codepoint    #处理特殊字符
+	
+	class MyPerser(HTMLParser):
+		def __init__(self):
+			HTMLParser.__init__(self)
+			
+		def handle_starttag(self, tag, attrs):
+			#这里重新定义了处理开始标签的函数
+			if tag == 'a':
+				#判断标签<a>的属性
+				for name,value in attrs:
+					if name == 'href':
+					print(value)
+					
+	if __name__ == '__main__':
+		a = '......html......'
+		my = MyPerser()
+		#传入要分析的数据，是html的.
+		#feed()方法可以多次调用，也就是不一定一次把整个HTML字符串塞进去，可以一部分一部分塞进去。
+		my.feed(a)
