@@ -1,0 +1,58 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}留言簿{% endblock %}
+
+{% block head %}
+{{ super() }}
+<link rel="short icon" href="{{ url_for('static', filename='mayi.ico') }}" type="image/x-icon">
+<link rel="icon" href="{{ url_for('static', filename='mayi.ico') }}" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+{% endblock %}
+
+{% block navbar %}
+<div class="navbar navbar-inverse" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle"
+			        data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">留言簿</a>
+		</div>
+		<div class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li><a href="#"></a></li>	<!--通过添加li标签向导航栏添加其他标签-->
+			</ul>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="wrapContent">
+<div class="wrapp">
+	<div class="Form">
+		{{ wtf.quick_form(form) }}
+	</div>
+	<ul class="posts">
+		{% for post in posts %}
+		<li class="post">
+			<div class="post-date">{{ moment(post.timestamp).format('LLL') }}</div>
+			<div class="poster">{{ post.name }}</div>
+			<div class="post-body">{{ post.text }}</div>
+		</li>
+		{% endfor %}
+	</ul>
+<div/>
+<div/>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{{ moment.include_moment() }}
+{{ moment.lang('zh-cn')}}
+{% endblock %}
