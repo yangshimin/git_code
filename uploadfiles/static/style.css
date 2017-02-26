@@ -1,0 +1,39 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+  .content{
+    width: 100%;
+    height:100%;
+	background:#82c458;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size:100%;
+  }
+  html, body {
+    width: 100%;
+    height: 100%;
+  }
+  .content1{
+    width: 500px;
+    height: 500px;
+    border-radius: 5px;
+	display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	background:#f0f0f0;
+  }
+  .listfile li{
+	  list-style:none;
+  }
+  .nav{
+	  align-self:flex-start;
+	  margin:10px 0 0 -50px ;
+  }
+
+ a {
+	 text-decoration:none;
+ }

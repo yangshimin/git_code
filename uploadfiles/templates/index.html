@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<title>文件上传</title>
+	<link rel="short icon" href="{{ url_for('static', filename='mayi.ico') }}" type="image/x-icon">
+	<link rel="icon" href="{{ url_for('static', filename='mayi.ico') }}" type="image/x-icon">
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
+	
+</head>
+
+<body>
+
+	<div class="content">
+		<div class="content1">
+			<div class="upload">
+				<a href="{{ url_for('managefile') }}">管理文件</a>
+				<form method="POST" enctype="multipart/form-data" >
+					{{ form.hidden_tag() }}
+					{{ form.upfile(multiple='multiple') }}
+					{% for error in form.upfile.errors %}
+						<span style="color:red">{{ error }}</span>
+					{% endfor %}
+					{{ form.submit() }}
+				</form>
+			</div>
+			<div class="listfile">
+			</div>
+		</div>	
+	</div>
+
+</body>
+</html>
+
+
+

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, flash
-from flask_wtf import FlaskForm
+from flask_wtf import Form
 from wtforms import StringField, TextAreaField, SubmitField
 from wtforms.validators import DataRequired
 from flask_sqlalchemy import SQLAlchemy
@@ -28,7 +28,7 @@ moment = Moment(app)
 bootstrap = Bootstrap(app)
 
 
-class PostForm(FlaskForm):
+class PostForm(Form):
     name = StringField(u'用户名:', validators=[DataRequired(message=u'用户名不能为空')])
     text = TextAreaField(u'内容:', validators=[DataRequired(message=u'内容不能为空')])
     submit = SubmitField(u'提交')

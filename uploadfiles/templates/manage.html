@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<title>文件上传</title>
+	<link rel="short icon" href="{{ url_for('static', filename='mayi.ico') }}" type="image/x-icon">
+	<link rel="icon" href="{{ url_for('static', filename='mayi.ico') }}" type="image/x-icon">
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
+	
+</head>
+
+<body>
+
+	<div class="content">
+		<div class="content1">
+			<div class="nav">
+				<a href="{{ url_for('index')}}">上传文件</a>
+			</div>
+			<div class="listfile">
+				<ul>
+					{% for imglist in imglists %}
+					<li><a href="{{ url_for('show', file=imglist)}}">{{ imglist }}</a>
+						<a href="{{ url_for('show', file=imglist)}}">打开</a>
+						<a href="{{ url_for('delete', file=imglist)}}">删除</a>
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>	
+	</div>
+
+</body>
+</html>
+
+
+
